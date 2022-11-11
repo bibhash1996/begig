@@ -1,0 +1,142 @@
+/*
+ * Header Styles
+ */
+
+.headerLogo {
+  height: 64px;
+  object-fit: contain;
+}
+
+.logoContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 64px;
+}
+
+/*
+ * Banner Styles
+ */
+
+.mediaBanner {
+  max-width: 100%;
+  height: 350px;
+  object-fit: contain;
+}
+
+.spotlight {
+  max-width: 1400px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.spotlightData {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 40px;
+  max-width: 500px;
+}
+
+.spotlightTitle {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.spotlightDescription {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.spotlightCopyright {
+  font-size: 12px;
+  color: #878787;
+}
+
+@media only screen and (max-width: 768px) {
+  .spotlight {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+}
+
+/*
+ * ROW STYLES
+ */
+
+.cardRows {
+  display: flex;
+  flex-direction: column;
+}
+
+.cardRowRoot {
+  padding: 0px 0px 10px;
+}
+
+.cardRowContainer {
+  display: flex;
+  overflow: auto;
+  box-shadow: 0 2px 4px 0 rgb(0 0 0 / 8%);
+}
+
+/*
+ * CARD STYLES
+ */
+
+.card {
+  padding: 16px;
+}
+
+.card:hover .cardMedia {
+  width: 200px;
+  height: 200px;
+}
+
+.cardMediaContainer {
+  width: 200px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cardMedia {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+}
+
+.cardData {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cardDate {
+  font-size: 14px;
+  color: #878787;
+  margin-top: 8px;
+}
+
+.cardTitle {
+  font-size: 16px;
+  text-align: center;
+}
+
+.infiniteScroll {
+  height: 100px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
