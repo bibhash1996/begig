@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "../styles/Home.module.css";
 import { Waypoint } from 'react-waypoint';
+import moment from 'moment';
 
 type DataItem = {
   copyright: string;
@@ -59,20 +60,33 @@ function MediaCard(props: {
   );
 }
 
+function subtractOneMonth(date: Date | string) {
+  const newDate = new Date(date);
+  newDate.setMonth(newDate.getMonth() - 1);
+  return moment(newDate).format('YYYY-MM-DD')
+}
+
 const Home = () => {
   const [data, setData] = useState<DataItem[]>([]);
+  const [endDate, setEndDate] = useState(moment(new Date()).format('YYYY-MM-DD'))
+  const [startDate, setStartDate] = useState(subtractOneMonth(new Date()))
+
 
   const fetchData = async (add?: boolean) => {
     fetch(
-      "https://api.nasa.gov/planetary/apod?api_key=gaff4Pwpu0Qg6woyFty1YhVRxhj4In1ImvOCyFD7&start_date=2022-10-01&end_date=2022-10-29&thumbs=true"
+      `https://api.nasa.gov/planetary/apod?api_key=gaff4Pwpu0Qg6woyFty1YhVRxhj4In1ImvOCyFD7&start_date=${startDate}&end_date=${endDate}&thumbs=true`
     )
       .then(async (res) => {
-        const response = await res.json();
+        const response: DataItem[] = await res.json();
         console.log("Data fetched : ", response)
+
         if (add) {
-          setData([...data, ...response])
-        } else
-          setData(response);
+          setData([...data, ...response.reverse()])
+        } else {
+          setData(response.reverse());
+        }
+        setEndDate(startDate)
+        setStartDate(subtractOneMonth(startDate));
       })
       .catch((err) => console.log(err));
   }
@@ -98,21 +112,21 @@ const Home = () => {
         <div className={styles.spotlight}>
           <div className={styles.spotlightData}>
             <span className={styles.spotlightTitle}>
-              {data[data.length - 1].title}
+              {data[0].title}
             </span>
             <span className={styles.spotlightDescription}>
-              {data[data.length - 1].explanation?.length > 100
-                ? `${data[data.length - 1].explanation.substring(0, 100)}...`
-                : data[data.length - 1].explanation}
+              {data[0].explanation?.length > 100
+                ? `${data[0].explanation.substring(0, 100)}...`
+                : data[0].explanation}
             </span>
             <span className={styles.spotlightCopyright}>
-              {data[data.length - 1].copyright}
+              {data[0].copyright}
             </span>
           </div>
           <MediaCard
             className={styles.mediaBanner}
-            mediaUrl={data[data.length - 1].url}
-            mediaType={data[data.length - 1].media_type as MediaType}
+            mediaUrl={data[0].url}
+            mediaType={data[0].media_type as MediaType}
           />
         </div>
       )}
